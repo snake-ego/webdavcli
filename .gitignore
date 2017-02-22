@@ -1,0 +1,17 @@
+# Folders
+.cache/
+.hg/
+.vscode/
+
+**/__samples__/
+**/__pycache__/
+
+# Files
+.coverage
+.hg*
+*.pyc
+*~
+*.idea
+*.conf
+*.db
+*.orig
