@@ -84,9 +84,7 @@ class ConfigFromJSON(object):
         config = config if config is not None else '{}.{}'.format(DEFAULT_CONFIG, cls.extension)
         rules = (
             '{0}',
-            f'/etc/{0}/{DEFAULT_CONFIG}.{cls.extension}',
             '{HOME}/.config/{0}',
-            f'{{HOME}}/.config/{0}/{DEFAULT_CONFIG}.{cls.extension}',
             '../data/{0}',
             '{0}'
         )
