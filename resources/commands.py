@@ -66,7 +66,7 @@ def encrypt_file(filename):
     cfg = ConfigFromJSON(section='gpg')
 
     if not op.exists(filename):
-        raise ValueError(f'File {filename} not exisit')
+        raise ValueError('File {} not exisit'.format(filename))
 
     gpg = GPG()
     target = ".".join([filename, 'gpg'])
@@ -82,7 +82,7 @@ def decrypt_file(filename, remove_source=None):
     cfg = ConfigFromJSON(section='gpg')
 
     if not op.exists(filename):
-        raise ValueError(f'File {filename} not exisit')
+        raise ValueError('File {} not exisit'.format(filename))
 
     gpg = GPG()
     target = filename.rstrip('.gpg')
