@@ -5,7 +5,7 @@ from gnupg import GPG
 from easywebdav import connect
 from fnmatch import fnmatch
 
-__all__ = ['pull', 'push', 'list']
+__all__ = ['pull', 'push', 'ls']
 
 
 def push(filepath, encrypt=None):
