@@ -18,6 +18,21 @@ clean:
 	@ find . -name "*.pyc" -delete
 	@ find . -name "*.orig" -delete
 
+                 
+.PHONY: clean
+clean:  
+	@ find . -name "*.pyc" -delete
+	@ find . -name "*.orig" -delete
+
+.PHONY: shell
+shell: 
+	@ /bin/sh
+
+
+.PHONY: python
+python: 
+	@ /usr/bin/env python
+
 
 .PHONY: requirements
 requirements:
@@ -55,3 +70,20 @@ shell:
 .PHONY: python
 python: 
 	@ /usr/bin/env python
+
+
+.PHONY: pack
+pack: prepare build
+
+.PHONY: build
+build: RUN_FILE = manage.py
+build: BUILD_FOLDER = ../build
+build: NAME = webdavcli
+build: 
+	@ pyinstaller \
+	    --exclude-module PyInstaller \
+	    --specpath "$(BUILD_FOLDER)" \
+	    --distpath "$(BUILD_FOLDER)/dist" \
+	    --workpath "$(BUILD_FOLDER)/build" \
+		--name "$(NAME) \
+	    $(RUN_FILE)
