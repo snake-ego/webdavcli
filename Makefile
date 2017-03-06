@@ -24,15 +24,6 @@ clean:
 	@ find . -name "*.pyc" -delete
 	@ find . -name "*.orig" -delete
 
-.PHONY: shell
-shell: 
-	@ /bin/sh
-
-
-.PHONY: python
-python: 
-	@ /usr/bin/env python
-
 
 .PHONY: requirements
 requirements:
@@ -66,7 +57,6 @@ prepare-dev: prepare-test requirements-dev
 shell: 
 	@ /bin/sh
 
-
 .PHONY: python
 python: 
 	@ /usr/bin/env python
@@ -85,5 +75,5 @@ build:
 	    --specpath "$(BUILD_FOLDER)" \
 	    --distpath "$(BUILD_FOLDER)/dist" \
 	    --workpath "$(BUILD_FOLDER)/build" \
-		--name "$(NAME) \
+		--name "$(NAME)" \
 	    $(RUN_FILE)
