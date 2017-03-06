@@ -3,6 +3,9 @@ from os import path as op
 from .config import ConfigFromJSON
 from gnupg import GPG
 from easywebdav import connect
+from fnmatch import fnmatch
+
+__all__ = ['pull', 'push', 'list']
 
 
 def push(filepath, encrypt=None):
@@ -22,24 +25,41 @@ def push(filepath, encrypt=None):
     return response
 
 
-def pull(filepath, target=None, decrypt=None):
+def pull(filename, target=None, decrypt=None, remove=None):
     target = target if isinstance(target, str) else './'
-    if not op.exists(target):
-        os.makedirs(target)
-
     cfg = ConfigFromJSON(section='webdav')
     webdav = connect(cfg.address,
                      username=cfg.get('user'),
                      password=cfg.get('password'),
                      protocol=cfg.get('protocol', 'http'))
 
-    filename = op.basename(filepath)
-    targetpath = op.join(target, filename)
+    if not op.exists(target):
+        os.makedirs(target)
+
+    filepath = op.join(cfg.get('root', '.'), filename)
+    targetpath = op.join(target, op.basename(filepath))
     response = webdav.download(filepath, targetpath)
     if decrypt:
         targetpath = decrypt_file(targetpath, remove_source=True)
-
+    if remove:
+        webdav.delete(filepath)
     return targetpath
+
+
+def ls(mask=None):
+    cfg = ConfigFromJSON(section='webdav')
+    webdav = connect(cfg.address,
+                     username=cfg.get('user'),
+                     password=cfg.get('password'),
+                     protocol=cfg.get('protocol', 'http'))
+    files = webdav.ls(remote_path=cfg.get('root', '.'))
+    alldata = list(filter(lambda f: f, [i.name.lstrip(cfg.get('root', '.')) for i in files]))
+    if isinstance(mask, str):
+        out = list(filter(lambda f: fnmatch(f, mask), alldata))
+    else:
+        out = alldata
+
+    return [print(i) for i in out] or out
 
 
 def encrypt_file(filename):
