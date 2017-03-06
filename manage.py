@@ -3,7 +3,7 @@ import argparse
 import logging
 from logging.config import dictConfig
 from os import path as op
-from resources import commands
+from resources.commands import *
 from resources.config import ConfigFromJSON
 
 cfg = ConfigFromJSON()
@@ -12,7 +12,7 @@ logger = logging.getLogger()
 
 
 def pull_commands(parser):
-    parser.set_defaults(func=commands.pull)
+    parser.set_defaults(func=pull)
     parser.add_argument("filename", type=str, help="Name of remote file")
     parser.add_argument("-t", "--target", type=str, required=False, dest='target', help="Output directory")
     parser.add_argument("-d", "--decrypt", required=False, action='store_true', dest='decrypt', help="Decrypt file after uploads")
@@ -20,13 +20,13 @@ def pull_commands(parser):
 
 
 def push_commands(parser):
-    parser.set_defaults(func=commands.push)
+    parser.set_defaults(func=push)
     parser.add_argument("filepath", type=str, help="Upload file path")
     parser.add_argument("-e", "--encrypt", required=False, action='store_true', dest='encrypt', help="Encrypt file before upload")
 
 
 def list_commands(parser):
-    parser.set_defaults(func=commands.ls)
+    parser.set_defaults(func=ls)
     parser.add_argument("-m", "--mask", required=False, type=str, dest='mask', help="Filter server files by mask")
 
 
