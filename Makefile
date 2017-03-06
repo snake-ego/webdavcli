@@ -18,12 +18,6 @@ clean:
 	@ find . -name "*.pyc" -delete
 	@ find . -name "*.orig" -delete
 
-                 
-.PHONY: clean
-clean:  
-	@ find . -name "*.pyc" -delete
-	@ find . -name "*.orig" -delete
-
 
 .PHONY: requirements
 requirements:
@@ -77,3 +71,4 @@ build:
 	    --workpath "$(BUILD_FOLDER)/build" \
 		--name "$(NAME)" \
 	    $(RUN_FILE)
+	@ $(MAKE) clean
