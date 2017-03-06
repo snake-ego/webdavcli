@@ -64,6 +64,7 @@ build: RUN_FILE = manage.py
 build: BUILD_FOLDER = ../build
 build: NAME = webdavcli
 build: 
+	@ rm -rf $(BUILD_FOLDER)/*
 	@ pyinstaller -F \
 	    --exclude-module PyInstaller \
 	    --specpath "$(BUILD_FOLDER)" \
