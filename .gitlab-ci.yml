@@ -3,7 +3,7 @@ variables:
 build:
     tags:
         - shell
-    script: sudo docker run --rm -v $(pwd)/build:/app/build -v $(pwd):/app/project $DOCKER_IMAGE pack
+    script: docker run --rm -v $(pwd)/build:/app/build -v $(pwd):/app/project $DOCKER_IMAGE pack
     artifacts:
         paths:
             - build/dist/webapicli
