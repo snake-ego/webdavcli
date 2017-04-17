@@ -4,7 +4,7 @@ build:
     tags:
         - shell
     script: 
-        - docker run --rm -v $(CI_PROJECT_PATH)/build:/app/build -v $(pwd):/app/project $DOCKER_IMAGE pack
+        - docker run --rm -v ${CI_PROJECT_PATH}/build:/app/build -v $(pwd):/app/project $DOCKER_IMAGE pack
         - ls
     artifacts:
         paths:
