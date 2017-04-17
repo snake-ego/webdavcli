@@ -1,5 +1,7 @@
 image: snakeego/py3-build:debian.i386
 build:
+    tags:
+        - docker
     script: pack
     artifacts:
         paths:
