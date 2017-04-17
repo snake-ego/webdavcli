@@ -1,7 +1,7 @@
 image: snakeego/py3-build:debian.i386
-
 build:
     script: pack
     artifacts:
-        - dist/webapicli
+        paths:
+            - dist/webapicli
     when: manual
